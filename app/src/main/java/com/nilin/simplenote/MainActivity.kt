@@ -35,7 +35,6 @@ class MainActivity : AppCompatActivity() {
         adapter = NoteAdapter(R.layout.item_note)
         recyclerview.adapter = adapter
 
-
 //        if (noteDao!=null) {
 //        for (x in 1..9) {
 //        val qb = noteDao!!.queryBuilder()
