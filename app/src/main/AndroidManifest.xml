@@ -3,6 +3,7 @@
     package="com.nilin.simplenote">
 
     <application
+        android:name=".App"
         android:allowBackup="false"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
