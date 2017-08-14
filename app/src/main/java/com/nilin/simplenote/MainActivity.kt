@@ -17,6 +17,9 @@ import com.nilin.simplenote.gen.NoteDao.Properties.*
 import kotlinx.android.synthetic.main.activity_details.*
 
 import kotlinx.android.synthetic.main.activity_main.*
+import java.nio.file.Files.size
+import kotlin.coroutines.experimental.EmptyCoroutineContext.plus
+
 
 class MainActivity : AppCompatActivity() {
     var adapter: NoteAdapter? = null
@@ -36,23 +39,15 @@ class MainActivity : AppCompatActivity() {
         recyclerview.adapter = adapter
 
 //        if (noteDao!=null) {
-//        for (x in 1..9) {
-//        val qb = noteDao!!.queryBuilder()
-//            val list = noteDao!!.queryBuilder().where(NoteDao.Properties.Id.eq(1)).list() as ArrayList<String>
+        val ss = App.instance.getNoteDao().loadAll()
+        for (i in 0..ss.size - 1) {
+            var dd= ArrayList<String>()
+            dd.add(ss.get(i).note)
+            adapter!!.setNewData(dd)
+        }
 
-//            var list= ArrayList<String>()
-//            list.add(x.toString())
-// var list= ArrayList<Notes>()
-//            list.add(Notes(x.toString()))
-//            val mUser = Note(2,"anye3")
-//        val mUserDao = MyApplication.instances?.daoSession?.noteDao
-//        mUserDao!!.insert(mUser);
-
-//            list.add(list.get(1))
 //            adapter!!.addData(list)
-//            Log.i("33333",x.toString())
-//        }
-//        }
+
 
 
         fab.setOnClickListener { view ->
