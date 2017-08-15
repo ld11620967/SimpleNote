@@ -2,30 +2,22 @@ package com.nilin.simplenote
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SimpleItemAnimator
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.nilin.developgoods.DetailsActivity
+import com.nilin.developgoods.NewActivity
 import com.nilin.developgoods.NoteAdapter
-import com.nilin.developgoods.Notes
-import com.nilin.simplenote.gen.NoteDao
-import com.nilin.simplenote.gen.NoteDao.Properties.*
-import kotlinx.android.synthetic.main.activity_details.*
 
 import kotlinx.android.synthetic.main.activity_main.*
-import java.nio.file.Files.size
-import kotlin.coroutines.experimental.EmptyCoroutineContext.plus
 
 
 class MainActivity : AppCompatActivity() {
     var adapter: NoteAdapter? = null
-    var noteDao: NoteDao?=null
-
-    var note:Notes?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,22 +29,28 @@ class MainActivity : AppCompatActivity() {
         simpleAnimator.supportsChangeAnimations = false
         adapter = NoteAdapter(R.layout.item_note)
         recyclerview.adapter = adapter
+        adapter!!.onItemClickListener = BaseQuickAdapter.OnItemClickListener {
+            adapter, view, position ->
+            val intent = Intent(this, DetailsActivity::class.java)
+            intent.putExtra("id", position.toString())
+            startActivity(intent)
+        }
 
-//        if (noteDao!=null) {
+//        adapter!!.onItemLongClickListener = BaseQuickAdapter.OnItemLongClickListener {
+//            adapter, view, position ->
+//            App.instance.getNoteDao().deleteByKey(position.toLong())
+//        }
+
         val ss = App.instance.getNoteDao().loadAll()
         for (i in 0..ss.size - 1) {
             var dd= ArrayList<String>()
             dd.add(ss.get(i).note)
-            adapter!!.setNewData(dd)
+            adapter!!.addData(dd)
+//            adapter!!.setNewData(dd)
         }
 
-//            adapter!!.addData(list)
-
-
-
         fab.setOnClickListener { view ->
-            val intent = Intent(this, DetailsActivity::class.java)
-//            intent.putExtra("url", article.url)
+            val intent = Intent(this, NewActivity::class.java)
             startActivity(intent)
         }
     }

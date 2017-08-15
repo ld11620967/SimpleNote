@@ -16,7 +16,6 @@ class App : Application() {
 
     companion object {
         var instance: App by Delegates.notNull()
-//        lateinit var instance: App
     }
 
     override fun onCreate() {
@@ -26,10 +25,7 @@ class App : Application() {
     }
 
     fun initDao() {
-//        val helper = DaoMaster.DevOpenHelper(this, "user")
-//        val db = helper.writableDb
-//        daoSession = DaoMaster(db).newSession()
-        val helper = DaoMaster.DevOpenHelper(this, "test.db", null)
+        val helper = DaoMaster.DevOpenHelper(this, "note.db", null)
         val db = helper.writableDatabase
         val daoMaster = DaoMaster(db)
         val daoSession = daoMaster.newSession()

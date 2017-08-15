@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.nilin.developgoods.DetailsActivity" />
+        <activity android:name="com.nilin.developgoods.NewActivity" />
     </application>
 
 </manifest>
