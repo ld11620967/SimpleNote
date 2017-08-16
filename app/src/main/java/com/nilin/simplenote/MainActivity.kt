@@ -18,6 +18,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     var adapter: NoteAdapter? = null
+    private val noteList: List<Note>? = null
+    val ss = App.instance.getNoteDao().loadAll()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +34,8 @@ class MainActivity : AppCompatActivity() {
         adapter!!.onItemClickListener = BaseQuickAdapter.OnItemClickListener {
             adapter, view, position ->
             val intent = Intent(this, DetailsActivity::class.java)
-            intent.putExtra("id", position.toString())
+//            intent.putExtra("note", position.toString())
+            intent.putExtra("note", ss.get(position).note)
             startActivity(intent)
         }
 
@@ -41,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 //            App.instance.getNoteDao().deleteByKey(position.toLong())
 //        }
 
-        val ss = App.instance.getNoteDao().loadAll()
+
         for (i in 0..ss.size - 1) {
             var dd= ArrayList<String>()
             dd.add(ss.get(i).note)
