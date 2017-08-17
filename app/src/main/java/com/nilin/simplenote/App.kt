@@ -32,9 +32,9 @@ class App : Application() {
         mNoteDao = daoSession.noteDao
     }
 
-    open fun getDaoSession(): DaoSession {
-        return daoSession!!
-    }
+//    open fun getDaoSession(): DaoSession {
+//        return daoSession!!
+//    }
 
     open fun getNoteDao(): NoteDao {
         return mNoteDao!!

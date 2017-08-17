@@ -21,6 +21,7 @@ class NewActivity : AppCompatActivity() {
         App.instance.getNoteDao().insertInTx(list)
         val Intent = Intent(this,MainActivity::class.java)
         startActivity(Intent)
+        finish()
         super.onBackPressed()
     }
 

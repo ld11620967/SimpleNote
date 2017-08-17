@@ -14,12 +14,15 @@ import com.nilin.developgoods.NewActivity
 import com.nilin.developgoods.NoteAdapter
 
 import kotlinx.android.synthetic.main.activity_main.*
+import android.widget.Toast
+import android.content.DialogInterface
+import android.support.v7.app.AlertDialog
 
 
 class MainActivity : AppCompatActivity() {
     var adapter: NoteAdapter? = null
-    private val noteList: List<Note>? = null
     val ss = App.instance.getNoteDao().loadAll()
+    var id= ArrayList<Long>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,23 +37,27 @@ class MainActivity : AppCompatActivity() {
         adapter!!.onItemClickListener = BaseQuickAdapter.OnItemClickListener {
             adapter, view, position ->
             val intent = Intent(this, DetailsActivity::class.java)
-//            intent.putExtra("note", position.toString())
+            intent.putExtra("id", id[position].toString())
             intent.putExtra("note", ss.get(position).note)
             startActivity(intent)
+
         }
 
-//        adapter!!.onItemLongClickListener = BaseQuickAdapter.OnItemLongClickListener {
-//            adapter, view, position ->
-//            App.instance.getNoteDao().deleteByKey(position.toLong())
-//        }
-
-
-        for (i in 0..ss.size - 1) {
-            var dd= ArrayList<String>()
-            dd.add(ss.get(i).note)
-            adapter!!.addData(dd)
-//            adapter!!.setNewData(dd)
+        adapter!!.onItemLongClickListener = BaseQuickAdapter.OnItemLongClickListener listener@{
+            adapter, view, position ->
+            AlertDialog.Builder(this).setTitle("提示")
+                    .setMessage("确定要删除吗？")
+                    .setNegativeButton("取消", null)
+                    .setPositiveButton("确定", DialogInterface.OnClickListener { dialog, which ->
+                        App.instance.getNoteDao().deleteByKey(id[position])
+                        adapter.notifyItemRemoved(position)
+                        adapter.notifyItemRangeChanged(0,position+1)
+                        Toast.makeText(this, "删除成功", Toast.LENGTH_SHORT).show()
+                    }).show()
+            return@listener false
         }
+
+        updata()
 
         fab.setOnClickListener { view ->
             val intent = Intent(this, NewActivity::class.java)
@@ -67,6 +74,15 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    fun updata() {
+        for (i in 0..ss.size - 1) {
+            var dd= ArrayList<String>()
+            dd.add(ss.get(i).note)
+            id.add(ss.get(i).id)
+            adapter!!.addData(dd)
         }
     }
 }
