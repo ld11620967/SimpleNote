@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SimpleItemAnimator
 import android.support.v7.widget.StaggeredGridLayoutManager
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -22,7 +21,7 @@ import android.support.v7.app.AlertDialog
 class MainActivity : AppCompatActivity() {
     var adapter: NoteAdapter? = null
     val ss = App.instance.getNoteDao().loadAll()
-    var id= ArrayList<Long>()
+    var id = ArrayList<Long>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,18 +39,18 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("id", id[position].toString())
             intent.putExtra("note", ss.get(position).note)
             startActivity(intent)
-
+            finish()
         }
 
-        adapter!!.onItemLongClickListener = BaseQuickAdapter.OnItemLongClickListener listener@{
+        adapter!!.onItemLongClickListener = BaseQuickAdapter.OnItemLongClickListener listener@ {
             adapter, view, position ->
             AlertDialog.Builder(this).setTitle("提示")
                     .setMessage("确定要删除吗？")
                     .setNegativeButton("取消", null)
                     .setPositiveButton("确定", DialogInterface.OnClickListener { dialog, which ->
                         App.instance.getNoteDao().deleteByKey(id[position])
-                        adapter.notifyItemRemoved(position)
-                        adapter.notifyItemRangeChanged(0,position+1)
+                        ss.removeAt(position)
+                        adapter.remove(position)
                         Toast.makeText(this, "删除成功", Toast.LENGTH_SHORT).show()
                     }).show()
             return@listener false
@@ -62,6 +61,7 @@ class MainActivity : AppCompatActivity() {
         fab.setOnClickListener { view ->
             val intent = Intent(this, NewActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 
@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity() {
 
     fun updata() {
         for (i in 0..ss.size - 1) {
-            var dd= ArrayList<String>()
+            var dd = ArrayList<String>()
             dd.add(ss.get(i).note)
             id.add(ss.get(i).id)
             adapter!!.addData(dd)
