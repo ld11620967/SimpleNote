@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         recyclerview.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        var simpleAnimator: SimpleItemAnimator = recyclerview.itemAnimator as SimpleItemAnimator
+        val simpleAnimator: SimpleItemAnimator = recyclerview.itemAnimator as SimpleItemAnimator
         simpleAnimator.supportsChangeAnimations = false
         adapter = NoteAdapter(R.layout.item_note)
         recyclerview.adapter = adapter
@@ -72,14 +72,17 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
+            R.id.action_settings -> {
+                Toast.makeText(this, "简约笔记", Toast.LENGTH_SHORT).show()
+                true
+            }
+            else ->super.onOptionsItemSelected(item)
         }
     }
 
     fun updata() {
         for (i in 0..ss.size - 1) {
-            var dd = ArrayList<String>()
+            val dd = ArrayList<String>()
             dd.add(ss.get(i).note)
             id.add(ss.get(i).id)
             adapter!!.addData(dd)

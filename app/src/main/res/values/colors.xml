@@ -4,6 +4,6 @@
     <color name="colorPrimaryDark">#ffaa00</color>
     <color name="colorAccent">#ffaa00</color>
 
-    <color name="background">#05ffaa00</color>
-    <color name="edge">#25ffaa00</color>
+    <color name="background">#04ffaa00</color>
+    <color name="edge">#1f000000</color>
 </resources>

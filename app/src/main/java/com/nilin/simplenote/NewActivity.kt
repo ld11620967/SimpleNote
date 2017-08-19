@@ -20,12 +20,19 @@ class NewActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        note = note_details.text.toString()
-        val list = Note(null,note)
-        App.instance.getNoteDao().insertInTx(list)
-        val Intent = Intent(this,MainActivity::class.java)
-        startActivity(Intent)
-        finish()
+
+            note = note_details.text.toString()
+        if (note != "") {
+            val list = Note(null, note)
+            App.instance.getNoteDao().insertInTx(list)
+            val Intent = Intent(this, MainActivity::class.java)
+            startActivity(Intent)
+            finish()
+        } else {
+            val Intent = Intent(this, MainActivity::class.java)
+            startActivity(Intent)
+            finish()
+        }
         super.onBackPressed()
     }
 
