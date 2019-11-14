@@ -2,13 +2,12 @@ package com.nilin.developgoods
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_details.*
 import com.nilin.simplenote.*
 
@@ -21,6 +20,9 @@ class NewActivity : AppCompatActivity() {
         setContentView(R.layout.activity_details)
         setSupportActionBar(toolbar_details)
 
+        note_details.setFocusable(true)//自动获得焦点
+        note_details.setFocusableInTouchMode(true)//自动获得焦点
+        note_details.requestFocus()//自动获得焦点
         Handler().postDelayed({ showInputMethod() }, 100)
     }
 

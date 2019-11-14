@@ -1,15 +1,15 @@
 package com.nilin.developgoods
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_details.*
 import com.nilin.simplenote.*
 
 
+@Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class DetailsActivity : AppCompatActivity() {
     var note: String? = null
     var ss: String? = null
@@ -20,7 +20,7 @@ class DetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_details)
         setSupportActionBar(toolbar_details)
 
-        var intent: Intent = getIntent()
+        val intent: Intent = getIntent()
         id = intent.getStringExtra("id").toLong()
         ss = intent.getStringExtra("note")
         note_details.setText(ss)

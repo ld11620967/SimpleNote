@@ -10,7 +10,7 @@ import kotlin.properties.Delegates
 /**
  * Created by liangd on 2017/8/14.
  */
-class App : Application() {
+open class App : Application() {
     var mNoteDao: NoteDao? = null
     private var daoSession: DaoSession? = null
 

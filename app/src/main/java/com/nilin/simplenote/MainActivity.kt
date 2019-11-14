@@ -2,9 +2,9 @@ package com.nilin.simplenote
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.SimpleItemAnimator
-import android.support.v7.widget.StaggeredGridLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.SimpleItemAnimator
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -15,7 +15,7 @@ import com.nilin.developgoods.NoteAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.Toast
 import android.content.DialogInterface
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 
 
 class MainActivity : AppCompatActivity() {
